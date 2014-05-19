@@ -74,7 +74,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-05-19T07:12:46.000Z" itemprop="datePublished">5月 19 2014</time>
-    更新日期:<time datetime="2014-05-19T07:25:39.000Z" itemprop="dateModified">5月 19 2014</time>
+    更新日期:<time datetime="2014-05-19T08:01:37.000Z" itemprop="dateModified">5月 19 2014</time>
     
   </p>
 </header>
@@ -91,20 +91,20 @@
 <li>安装并启动mongodb</li>
 </ul>
 <p>将以下内容保存为shell脚本并招行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
 6
 7
-</pre></td><td class="code"><pre><span class="shebang">#!/bin/bash</span>
-wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz
-tar xvf mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz  
-mkdir -p /data/mongodb/logs
-mkdir -p /data/mongodb/data
-mv mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span> /data/mongodb
-ulimit -n <span class="number">2048</span> && /data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongod --logpath /data/mongodb/logs/mongo.log --dbpath /data/mongodb/data --bind_ip <span class="number">127.0</span>.<span class="number">0.1</span> --fork
+</pre></td><td class="code"><pre><span class="preprocessor">#!/bin/bash</span>
+<span class="title">wget</span> http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span>.tgz
+<span class="title">tar</span> xvf mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span>.tgz  
+<span class="title">mkdir</span> -p /<span class="typedef"><span class="keyword">data</span>/mongodb/logs</span>
+<span class="title">mkdir</span> -p /<span class="typedef"><span class="keyword">data</span>/mongodb/<span class="keyword">data</span></span>
+<span class="title">mv</span> mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span> /<span class="typedef"><span class="keyword">data</span>/mongodb</span>
+<span class="title">ulimit</span> -n <span class="number">2048</span> && /<span class="typedef"><span class="keyword">data</span>/mongodb/mongodb-linux-x86_64-2.6.1/bin/mongod <span class="comment">--logpath /data/mongodb/logs/mongo.log --dbpath /data/mongodb/data --bind_ip 127.0.0.1 --fork</span></span>
 </pre></td></tr></table></figure>
 
 <blockquote>
@@ -113,24 +113,27 @@ ulimit -n <span class="number">2048</span> && /data/mongodb/mongodb-linux-x86_64
 <ul>
 <li>运行mongodb客户端</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>/data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongo
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>/<span class="built_in">data</span>/mongodb/mongodb<span class="attribute">-linux</span><span class="attribute">-x86_64</span><span class="subst">-</span><span class="number">2.6</span><span class="number">.1</span>/bin/mongo
 </pre></td></tr></table></figure>
 
 <ul>
 <li>创建数据库、用户和索引</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
 5
+6
 </pre></td><td class="code"><pre>use mydatabase
-db.createUser( { <span class="string">"user"</span> : <span class="string">"your_name"</span>,
+db<span class="preprocessor">.createUser</span>( { <span class="string">"user"</span> : <span class="string">"your_name"</span>,
                  <span class="string">"pwd"</span>: <span class="string">"your_password"</span>,
                  <span class="string">"roles"</span> : [ <span class="string">"readWrite"</span>] 
-               });
-</pre></td></tr></table></figure>  
+               })<span class="comment">;               </span>
+db<span class="preprocessor">.your</span>_collection<span class="preprocessor">.ensureIndex</span>({<span class="string">"index_column1"</span>:<span class="number">1</span>,<span class="string">"index_column2"</span>:<span class="number">1</span>}, {unique:true})<span class="comment">;</span>
+</pre></td></tr></table></figure>
+  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -158,6 +161,14 @@ db.createUser( { <span class="string">"user"</span> : <span class="string">"your
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/05/19/mongodb-sarding-in-action/" title="MongoDB Sharding in Action">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  MongoDB Sharding in Action</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2014/05/19/my-new-post/"  title="Linux常用脚本">
@@ -202,7 +213,7 @@ db.createUser( { <span class="string">"user"</span> : <span class="string">"your
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
 		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>2</sup></a></li>
 		
 		</ul>
 </div>

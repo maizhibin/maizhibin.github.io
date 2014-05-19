@@ -74,7 +74,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-05-19T05:23:01.000Z" itemprop="datePublished">5月 19 2014</time>
-    更新日期:<time datetime="2014-05-19T06:06:30.000Z" itemprop="dateModified">5月 19 2014</time>
+    更新日期:<time datetime="2014-05-19T07:58:09.000Z" itemprop="dateModified">5月 19 2014</time>
     
   </p>
 </header>
@@ -88,23 +88,23 @@
 		
 		<h2 id="目录与文件">目录与文件</h2>
 <p>查找当前目录下.txt，最近30分钟内修改过的文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find <span class="built_in">.</span> <span class="attribute">-name</span> <span class="string">'*.txt'</span> <span class="attribute">-type</span> f <span class="attribute">-mmin</span> <span class="subst">-</span><span class="number">30</span>
 </pre></td></tr></table></figure>
 
 <p>查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span> -ls
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find <span class="built_in">.</span> <span class="attribute">-name</span> <span class="string">'*.txt'</span> <span class="attribute">-type</span> f <span class="attribute">-mmin</span> <span class="subst">-</span><span class="number">30</span> <span class="attribute">-ls</span>
 </pre></td></tr></table></figure>
 
 <p>查找当前目录下，最近1天内修改过的常规文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -type f -mtime -<span class="number">1</span>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -<span class="class"><span class="keyword">type</span> <span class="title">f</span> -<span class="title">mtime</span> -1</span>
 </pre></td></tr></table></figure>
 
 <p>查找当前目录下，最近1天前（2天内）修改过的常规文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -type f -mtime +<span class="number">1</span>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -<span class="class"><span class="keyword">type</span> <span class="title">f</span> -<span class="title">mtime</span> +1</span>
 </pre></td></tr></table></figure> 
 
 <p>注意这里的：-1, 1, +1的区别</p>
@@ -189,7 +189,7 @@
 		
 			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
 		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>2</sup></a></li>
 		
 		</ul>
 </div>

@@ -1,26 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[麦苗]]></title>
-  <subtitle><![CDATA[奶爸日记]]></subtitle>
-  <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2014-05-19T08:31:14.654Z</updated>
-  <id>http://yoursite.com/</id>
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
   
-  <author>
-    <name><![CDATA[Mai Zhibin]]></name>
-    <email><![CDATA[my2014@gmail.com]]></email>
-  </author>
-  
-  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[MongoDB Sharding in Action]]></title>
-    <link href="http://yoursite.com/2014/05/19/mongodb-sarding-in-action/"/>
-    <id>http://yoursite.com/2014/05/19/mongodb-sarding-in-action/</id>
-    <published>2014-05-19T08:03:03.000Z</published>
-    <updated>2014-05-19T08:30:49.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="概述">概述</h1>
+    <title>MongoDB Sharding in Action | 麦苗</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Mai Zhibin">
+    
+    <meta name="description" itemprop="description" content="MongoDB Sharding 实战">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="麦苗" title="麦苗"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="麦苗">麦苗</a></h1>
+				<h2 class="blog-motto">奶爸日记</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/19/mongodb-sarding-in-action/" title="MongoDB Sharding in Action" itemprop="url">MongoDB Sharding in Action</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="Mai Zhibin">Mai Zhibin</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-05-19T08:03:03.000Z" itemprop="datePublished">5月 19 2014</time>
+    更新日期:<time datetime="2014-05-19T08:30:49.000Z" itemprop="dateModified">5月 19 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑结构"><span class="toc-number">2.</span> <span class="toc-text">逻辑结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sharding机制"><span class="toc-number">3.</span> <span class="toc-text">Sharding机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置步骤"><span class="toc-number">4.</span> <span class="toc-text">配置步骤</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建目录："><span class="toc-number">4.1.</span> <span class="toc-text">一、创建目录：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、启动Config_Server实例"><span class="toc-number">4.2.</span> <span class="toc-text">二、启动Config Server实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、启动Mongos实例"><span class="toc-number">4.3.</span> <span class="toc-text">三、启动Mongos实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、启动Shard实例"><span class="toc-number">4.4.</span> <span class="toc-text">四、启动Shard实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查看进程"><span class="toc-number">4.5.</span> <span class="toc-text">五、查看进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、把数据节点加到集群中"><span class="toc-number">4.6.</span> <span class="toc-text">六、把数据节点加到集群中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、对数据库启用Sharding"><span class="toc-number">4.7.</span> <span class="toc-text">七、对数据库启用Sharding</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#选择Shard_Key的注意事项"><span class="toc-number">5.</span> <span class="toc-text">选择Shard Key的注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+		</div>
+		
+		<h1 id="概述">概述</h1>
 <p>在Sharding In Action之前，先了解一下什么是 Sharding。</p>
 <p>所谓 Sharding 就是将数据水平切分到不同的物理节点。这里着重点有两个， 一个是水平切分，另一个是物理节点。一般我们说数据库的分库分表有两种类型。一种是水平划分，比如按用户 id 取模，按余数划分用户的数据；另一种是垂直划分，比如把交易数据放一个节点，把商品数据放另一个节点，甚至可以把交易基本信息放一个节点，详细信息放另一个节点。</p>
 <p>这里所说的Sharding 指的是水平切分。</p>
@@ -224,148 +290,220 @@ sh<span class="preprocessor">.shardCollection</span>(<span class="string">"perfo
 <h1 id="总结">总结</h1>
 <p>通过这次Sharding的实操，对Mongodb的分片原理和实施方式都有一定的了解。关于如何选择Shard Key，需要结合业务、查询条件等来评估一个合理、有效的Key。后续我们还需要多看文档，掌握MongoDB集群的运维、排错命令和技巧。</p>
 <p>如有疑问或上文有错误的地方，欢迎反馈。</p>
-]]></content>
-    
-    
-      <category term="MongoDB" scheme="http://yoursite.com/tags/MongoDB/"/>
-    
-  </entry>
   
-  <entry>
-    <title><![CDATA[MongoDB安装脚本]]></title>
-    <link href="http://yoursite.com/2014/05/19/mongodb-install-shell/"/>
-    <id>http://yoursite.com/2014/05/19/mongodb-install-shell/</id>
-    <published>2014-05-19T07:12:46.000Z</published>
-    <updated>2014-05-19T08:01:37.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="MongoDB安装脚本">MongoDB安装脚本</h1>
-<ul>
-<li>安装并启动mongodb</li>
-</ul>
-<p>将以下内容保存为shell脚本并招行</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="code"><pre><span class="preprocessor">#!/bin/bash</span>
-<span class="title">wget</span> http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span>.tgz
-<span class="title">tar</span> xvf mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span>.tgz  
-<span class="title">mkdir</span> -p /<span class="typedef"><span class="keyword">data</span>/mongodb/logs</span>
-<span class="title">mkdir</span> -p /<span class="typedef"><span class="keyword">data</span>/mongodb/<span class="keyword">data</span></span>
-<span class="title">mv</span> mongodb-linux-x86_64-<span class="number">2.6</span><span class="number">.1</span> /<span class="typedef"><span class="keyword">data</span>/mongodb</span>
-<span class="title">ulimit</span> -n <span class="number">2048</span> && /<span class="typedef"><span class="keyword">data</span>/mongodb/mongodb-linux-x86_64-2.6.1/bin/mongod <span class="comment">--logpath /data/mongodb/logs/mongo.log --dbpath /data/mongodb/data --bind_ip 127.0.0.1 --fork</span></span>
-</pre></td></tr></table></figure>
+	</div>
+		<footer class="article-footer clearfix">
 
-<blockquote>
-<p>bind_ip: 只允许通过该IP连接<br>logpath: 日志路径<br>dbpath:  数据文件路径</p>
-</blockquote>
-<ul>
-<li>运行mongodb客户端</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>/<span class="built_in">data</span>/mongodb/mongodb<span class="attribute">-linux</span><span class="attribute">-x86_64</span><span class="subst">-</span><span class="number">2.6</span><span class="number">.1</span>/bin/mongo
-</pre></td></tr></table></figure>
-
-<ul>
-<li>创建数据库、用户和索引</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre>use mydatabase
-db<span class="preprocessor">.createUser</span>( { <span class="string">"user"</span> : <span class="string">"your_name"</span>,
-                 <span class="string">"pwd"</span>: <span class="string">"your_password"</span>,
-                 <span class="string">"roles"</span> : [ <span class="string">"readWrite"</span>] 
-               })<span class="comment">;               </span>
-db<span class="preprocessor">.your</span>_collection<span class="preprocessor">.ensureIndex</span>({<span class="string">"index_column1"</span>:<span class="number">1</span>,<span class="string">"index_column2"</span>:<span class="number">1</span>}, {unique:true})<span class="comment">;</span>
-</pre></td></tr></table></figure>
-]]></content>
-    
-    
-      <category term="MongoDB" scheme="http://yoursite.com/tags/MongoDB/"/>
-    
-      <category term="NoSQL" scheme="http://yoursite.com/categories/NoSQL/"/>
-    
-  </entry>
+  <div class="article-tags">
   
-  <entry>
-    <title><![CDATA[Linux常用脚本]]></title>
-    <link href="http://yoursite.com/2014/05/19/my-new-post/"/>
-    <id>http://yoursite.com/2014/05/19/my-new-post/</id>
-    <published>2014-05-19T05:23:01.000Z</published>
-    <updated>2014-05-19T07:58:09.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="目录与文件">目录与文件</h2>
-<p>查找当前目录下.txt，最近30分钟内修改过的文件。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find <span class="built_in">.</span> <span class="attribute">-name</span> <span class="string">'*.txt'</span> <span class="attribute">-type</span> f <span class="attribute">-mmin</span> <span class="subst">-</span><span class="number">30</span>
-</pre></td></tr></table></figure>
+  <span></span> <a href="/tags/MongoDB/">MongoDB</a>
+  </div>
 
-<p>查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find <span class="built_in">.</span> <span class="attribute">-name</span> <span class="string">'*.txt'</span> <span class="attribute">-type</span> f <span class="attribute">-mmin</span> <span class="subst">-</span><span class="number">30</span> <span class="attribute">-ls</span>
-</pre></td></tr></table></figure>
 
-<p>查找当前目录下，最近1天内修改过的常规文件。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -<span class="class"><span class="keyword">type</span> <span class="title">f</span> -<span class="title">mtime</span> -1</span>
-</pre></td></tr></table></figure>
 
-<p>查找当前目录下，最近1天前（2天内）修改过的常规文件。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -<span class="class"><span class="keyword">type</span> <span class="title">f</span> -<span class="title">mtime</span> +1</span>
-</pre></td></tr></table></figure> 
 
-<p>注意这里的：-1, 1, +1的区别</p>
-<h2 id="统计">统计</h2>
-]]></content>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
-    
-  </entry>
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/05/19/mongodb-sarding-in-action/" data-title="MongoDB Sharding in Action | 麦苗" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/05/19/mongodb-install-shell/"  title="MongoDB安装脚本">
+ <strong>NEXT:</strong><br/> 
+ <span>MongoDB安装脚本
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑结构"><span class="toc-number">2.</span> <span class="toc-text">逻辑结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sharding机制"><span class="toc-number">3.</span> <span class="toc-text">Sharding机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置步骤"><span class="toc-number">4.</span> <span class="toc-text">配置步骤</span></a></li><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、创建目录："><span class="toc-number">4.1.</span> <span class="toc-text">一、创建目录：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、启动Config_Server实例"><span class="toc-number">4.2.</span> <span class="toc-text">二、启动Config Server实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、启动Mongos实例"><span class="toc-number">4.3.</span> <span class="toc-text">三、启动Mongos实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、启动Shard实例"><span class="toc-number">4.4.</span> <span class="toc-text">四、启动Shard实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、查看进程"><span class="toc-number">4.5.</span> <span class="toc-text">五、查看进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、把数据节点加到集群中"><span class="toc-number">4.6.</span> <span class="toc-text">六、把数据节点加到集群中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、对数据库启用Sharding"><span class="toc-number">4.7.</span> <span class="toc-text">七、对数据库启用Sharding</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#选择Shard_Key的注意事项"><span class="toc-number">5.</span> <span class="toc-text">选择Shard Key的注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
   
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://yoursite.com/2014/05/19/hello-world/"/>
-    <id>http://yoursite.com/2014/05/19/hello-world/</id>
-    <published>2014-05-19T05:08:06.000Z</published>
-    <updated>2014-05-19T05:08:06.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank">trobuleshooting</a> or you can ask me on <a href="https://github.com/tommy351/hexo/issues" target="_blank">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>$ hexo new <span class="string">"My New Post"</span>
-</pre></td></tr></table></figure>
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		
+			<li><a href="/categories/NoSQL/" title="NoSQL">NoSQL<sup>1</sup></a></li>
+		
+		</ul>
+</div>
 
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>$ hexo server
-</pre></td></tr></table></figure>
 
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>$ hexo generate
-</pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>$ hexo deploy
-</pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank">Deployment</a></p>
-]]></content>
-    
-    
-  </entry>
   
-</feed>
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://yoursite.com" target="_blank" title="Mai Zhibin">Mai Zhibin</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>
