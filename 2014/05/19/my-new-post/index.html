@@ -4,10 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>My New Post | 麦苗</title>
+    <title>Linux常用脚本 | 麦苗</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mai Zhibin">
+    
+    <meta name="description" content="目录与文件
+查找当前目录下.txt，最近30分钟内修改过的文件。
+1
+find . -name &#39;*.txt&#39; -type f -mmin -30
+
+
+查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。
+1
+find . -name &#39;*.txt&#39; -type f -mmin -30 -">
     
     
     
@@ -64,7 +74,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/05/19/my-new-post/" title="My New Post" itemprop="url">My New Post</a>
+      <a href="/2014/05/19/my-new-post/" title="Linux常用脚本" itemprop="url">Linux常用脚本</a>
   </h1>
   <p class="article-author">By
     
@@ -72,7 +82,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-05-19T05:23:01.000Z" itemprop="datePublished">May 19 2014</time>
-    Updated:<time datetime="2014-05-19T05:23:01.000Z" itemprop="dateModified">May 19 2014</time>
+    Updated:<time datetime="2014-05-19T05:57:47.000Z" itemprop="dateModified">May 19 2014</time>
     
   </p>
 </header>
@@ -81,19 +91,44 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li></ol>
 		</div>
 		
-		  
+		<h2 id="目录与文件">目录与文件</h2>
+<p>查找当前目录下.txt，最近30分钟内修改过的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span>
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span> -ls
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下，最近1天内修改过的常规文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -type f -mtime -<span class="number">1</span>
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下，最近1天前（2天内）修改过的常规文件。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -type f -mtime +<span class="number">1</span>
+</pre></td></tr></table></figure><br>注意这里的：-1, 1, +1的区别</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/05/19/my-new-post/" data-title="My New Post | 麦苗" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/05/19/my-new-post/" data-title="Linux常用脚本 | 麦苗" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -119,7 +154,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li></ol>
   </div>
 
 <div id="asidepart">
@@ -129,6 +164,15 @@
   
 
   
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
 
   <div class="rsspart">
 	<a href="null" target="_blank" title="rss">RSS</a>
