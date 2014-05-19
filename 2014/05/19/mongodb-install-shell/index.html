@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Linux常用脚本 | 麦苗</title>
+    <title>MongoDB安装脚本 | 麦苗</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mai Zhibin">
     
-    <meta name="description" itemprop="description" content="Linux常用脚本">
+    <meta name="description" itemprop="description" content="简单的MongoDB安装脚本">
     
     
     
@@ -66,15 +66,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/05/19/my-new-post/" title="Linux常用脚本" itemprop="url">Linux常用脚本</a>
+      <a href="/2014/05/19/mongodb-install-shell/" title="MongoDB安装脚本" itemprop="url">MongoDB安装脚本</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="Mai Zhibin">Mai Zhibin</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-05-19T05:23:01.000Z" itemprop="datePublished">5月 19 2014</time>
-    更新日期:<time datetime="2014-05-19T06:06:30.000Z" itemprop="dateModified">5月 19 2014</time>
+    <time datetime="2014-05-19T07:12:46.000Z" itemprop="datePublished">5月 19 2014</time>
+    更新日期:<time datetime="2014-05-19T07:20:38.000Z" itemprop="dateModified">5月 19 2014</time>
     
   </p>
 </header>
@@ -83,52 +83,68 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB安装脚本"><span class="toc-number">1.</span> <span class="toc-text">MongoDB安装脚本</span></a></li></ol>
 		</div>
 		
-		<h2 id="目录与文件">目录与文件</h2>
-<p>查找当前目录下.txt，最近30分钟内修改过的文件。</p>
+		<h1 id="MongoDB安装脚本">MongoDB安装脚本</h1>
+<ul>
+<li>安装并启动mongodb</li>
+</ul>
+<p>将以下内容保存为shell脚本并招行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span>
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="shebang">#!/bin/bash</span>
+wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz
+tar xvf mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz  
+mkdir -p /data/mongodb/logs
+mkdir -p /data/mongodb/data
+mv mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span> /data/mongodb
+ulimit -n <span class="number">2048</span> && /data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongod --logpath /data/mongodb/logs/mongo.log --dbpath /data/mongodb/data --bind_ip <span class="number">127.0</span>.<span class="number">0.1</span> --fork
 </pre></td></tr></table></figure>
 
-<p>查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。</p>
+<blockquote>
+<p>bind_ip: 只允许通过该IP连接<br>logpath: 日志路径<br>dbpath:  数据文件路径</p>
+</blockquote>
+<ul>
+<li>运行mongodb客户端</li>
+</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span> -ls
+</pre></td><td class="code"><pre>/data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongo
 </pre></td></tr></table></figure>
 
-<p>查找当前目录下，最近1天内修改过的常规文件。</p>
+<ul>
+<li>创建数据库、用户和索引</li>
+</ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -type f -mtime -<span class="number">1</span>
-</pre></td></tr></table></figure>
-
-<p>查找当前目录下，最近1天前（2天内）修改过的常规文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>find . -type f -mtime +<span class="number">1</span>
-</pre></td></tr></table></figure> 
-
-<p>注意这里的：-1, 1, +1的区别</p>
-<h2 id="统计">统计</h2>
-  
+2
+3
+4
+5
+</pre></td><td class="code"><pre>use mydatabase
+db.createUser( { <span class="string">"user"</span> : <span class="string">"your_name"</span>,
+                 <span class="string">"pwd"</span>: <span class="string">"your_password"</span>,
+                 <span class="string">"roles"</span> : [ <span class="string">"readWrite"</span>] 
+               });
+</pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/MongoDB/">MongoDB</a>
   </div>
 
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/05/19/my-new-post/" data-title="Linux常用脚本 | 麦苗" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/05/19/mongodb-install-shell/" data-title="MongoDB安装脚本 | 麦苗" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -137,19 +153,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/05/19/mongodb-install-shell/" title="MongoDB安装脚本">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  MongoDB安装脚本</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/05/19/hello-world/"  title="Hello World">
+<a href="/2014/05/19/my-new-post/"  title="Linux常用脚本">
  <strong>NEXT:</strong><br/> 
- <span>Hello World
+ <span>Linux常用脚本
 </span>
 </a>
 </div>
@@ -162,7 +170,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB安装脚本"><span class="toc-number">1.</span> <span class="toc-text">MongoDB安装脚本</span></a></li></ol>
   </div>
 
 <div id="asidepart">
