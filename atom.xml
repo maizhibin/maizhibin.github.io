@@ -4,7 +4,7 @@
   <subtitle><![CDATA[奶爸日记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2014-05-19T08:31:14.654Z</updated>
+  <updated>2014-05-19T08:32:07.672Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/05/19/mongodb-sarding-in-action/"/>
     <id>http://yoursite.com/2014/05/19/mongodb-sarding-in-action/</id>
     <published>2014-05-19T08:03:03.000Z</published>
-    <updated>2014-05-19T08:30:49.000Z</updated>
+    <updated>2014-05-19T08:32:03.000Z</updated>
     <content type="html"><![CDATA[<h1 id="概述">概述</h1>
 <p>在Sharding In Action之前，先了解一下什么是 Sharding。</p>
 <p>所谓 Sharding 就是将数据水平切分到不同的物理节点。这里着重点有两个， 一个是水平切分，另一个是物理节点。一般我们说数据库的分库分表有两种类型。一种是水平划分，比如按用户 id 取模，按余数划分用户的数据；另一种是垂直划分，比如把交易数据放一个节点，把商品数据放另一个节点，甚至可以把交易基本信息放一个节点，详细信息放另一个节点。</p>
@@ -228,6 +228,8 @@ sh<span class="preprocessor">.shardCollection</span>(<span class="string">"perfo
     
     
       <category term="MongoDB" scheme="http://yoursite.com/tags/MongoDB/"/>
+    
+      <category term="NoSQL" scheme="http://yoursite.com/categories/NoSQL/"/>
     
   </entry>
   
