@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[麦苗]]></title>
+  <subtitle><![CDATA[奶爸日记]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2014-05-19T07:35:18.971Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name><![CDATA[Mai Zhibin]]></name>
+    <email><![CDATA[my2014@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[MongoDB安装脚本]]></title>
+    <link href="http://yoursite.com/2014/05/19/mongodb-install-shell/"/>
+    <id>http://yoursite.com/2014/05/19/mongodb-install-shell/</id>
+    <published>2014-05-19T07:12:46.000Z</published>
+    <updated>2014-05-19T07:25:39.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="MongoDB安装脚本">MongoDB安装脚本</h1>
+<ul>
+<li>安装并启动mongodb</li>
+</ul>
+<p>将以下内容保存为shell脚本并招行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="shebang">#!/bin/bash</span>
+wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz
+tar xvf mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>.tgz  
+mkdir -p /data/mongodb/logs
+mkdir -p /data/mongodb/data
+mv mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span> /data/mongodb
+ulimit -n <span class="number">2048</span> && /data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongod --logpath /data/mongodb/logs/mongo.log --dbpath /data/mongodb/data --bind_ip <span class="number">127.0</span>.<span class="number">0.1</span> --fork
+</pre></td></tr></table></figure>
+
+<blockquote>
+<p>bind_ip: 只允许通过该IP连接<br>logpath: 日志路径<br>dbpath:  数据文件路径</p>
+</blockquote>
+<ul>
+<li>运行mongodb客户端</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>/data/mongodb/mongodb-linux-x86_64-<span class="number">2.6</span>.<span class="number">1</span>/bin/mongo
+</pre></td></tr></table></figure>
+
+<ul>
+<li>创建数据库、用户和索引</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>use mydatabase
+db.createUser( { <span class="string">"user"</span> : <span class="string">"your_name"</span>,
+                 <span class="string">"pwd"</span>: <span class="string">"your_password"</span>,
+                 <span class="string">"roles"</span> : [ <span class="string">"readWrite"</span>] 
+               });
+</pre></td></tr></table></figure>]]></content>
+    
+    
+      <category term="MongoDB" scheme="http://yoursite.com/tags/MongoDB/"/>
+    
+      <category term="NoSQL" scheme="http://yoursite.com/categories/NoSQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux常用脚本]]></title>
+    <link href="http://yoursite.com/2014/05/19/my-new-post/"/>
+    <id>http://yoursite.com/2014/05/19/my-new-post/</id>
+    <published>2014-05-19T05:23:01.000Z</published>
+    <updated>2014-05-19T06:06:30.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="目录与文件">目录与文件</h2>
+<p>查找当前目录下.txt，最近30分钟内修改过的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span>
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下.txt，最近30分钟内修改过的文件的详细情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -name <span class="string">'*.txt'</span> -type f -mmin -<span class="number">30</span> -ls
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下，最近1天内修改过的常规文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -type f -mtime -<span class="number">1</span>
+</pre></td></tr></table></figure>
+
+<p>查找当前目录下，最近1天前（2天内）修改过的常规文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>find . -type f -mtime +<span class="number">1</span>
+</pre></td></tr></table></figure> 
+
+<p>注意这里的：-1, 1, +1的区别</p>
+<h2 id="统计">统计</h2>
+]]></content>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://yoursite.com/2014/05/19/hello-world/"/>
+    <id>http://yoursite.com/2014/05/19/hello-world/</id>
+    <published>2014-05-19T05:08:06.000Z</published>
+    <updated>2014-05-19T05:08:06.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank">trobuleshooting</a> or you can ask me on <a href="https://github.com/tommy351/hexo/issues" target="_blank">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
+<h3 id="Create_a_new_post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ hexo new <span class="string">"My New Post"</span>
+</pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank">Writing</a></p>
+<h3 id="Run_server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ hexo server
+</pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ hexo generate
+</pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ hexo deploy
+</pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank">Deployment</a></p>
+]]></content>
+    
+    
+  </entry>
+  
+</feed>
