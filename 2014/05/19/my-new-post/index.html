@@ -14,6 +14,8 @@
     
     
     
+    <link rel="alternative" href="rss2.xml" title="麦苗" type="application/atom+xml">
+    
     
     <link rel="icon" href="/img/favicon.ico">
     
@@ -42,9 +44,9 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/">Home</a></li>
+						<li><a href="/">首页</a></li>
 					
-						<li><a href="/archives">Archives</a></li>
+						<li><a href="/archives">归档</a></li>
 					
 					<li>
 					
@@ -74,7 +76,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-05-19T05:23:01.000Z" itemprop="datePublished">5月 19 2014</time>
-    更新日期:<time datetime="2014-05-19T07:58:09.000Z" itemprop="dateModified">5月 19 2014</time>
+    更新日期:<time datetime="2014-05-20T08:22:53.000Z" itemprop="dateModified">5月 20 2014</time>
     
   </p>
 </header>
@@ -83,7 +85,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络"><span class="toc-number">3.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全"><span class="toc-number">4.</span> <span class="toc-text">安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管理"><span class="toc-number">5.</span> <span class="toc-text">管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#……"><span class="toc-number">6.</span> <span class="toc-text">……</span></a></li></ol>
 		</div>
 		
 		<h2 id="目录与文件">目录与文件</h2>
@@ -109,6 +111,14 @@
 
 <p>注意这里的：-1, 1, +1的区别</p>
 <h2 id="统计">统计</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>wc <span class="operator">-l</span>
+</pre></td></tr></table></figure>
+
+<h2 id="网络">网络</h2>
+<h2 id="安全">安全</h2>
+<h2 id="管理">管理</h2>
+<h2 id="……">……</h2>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -162,12 +172,16 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录与文件"><span class="toc-number">1.</span> <span class="toc-text">目录与文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计"><span class="toc-number">2.</span> <span class="toc-text">统计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络"><span class="toc-number">3.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全"><span class="toc-number">4.</span> <span class="toc-text">安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管理"><span class="toc-number">5.</span> <span class="toc-text">管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#……"><span class="toc-number">6.</span> <span class="toc-text">……</span></a></li></ol>
   </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
+
+  <div class="rsspart">
+	<a href="rss2.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
 
   
 <div class="categorieslist">
@@ -183,20 +197,27 @@
 
 
   
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
-		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>2</sup></a></li>
-		
-		</ul>
-</div>
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MongoDB/" style="font-size: 20.00px;">MongoDB</a>
+    </div>
+  </div>
 
 
-  <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zespia.tw/hexo" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
 </div>
 
 </aside>

@@ -12,6 +12,8 @@
     
     
     
+    <link rel="alternative" href="rss2.xml" title="麦苗" type="application/atom+xml">
+    
     
     <link rel="icon" href="/img/favicon.ico">
     
@@ -40,9 +42,9 @@
 				<ul>
 					<ul>
 					 
-						<li><a href="/">Home</a></li>
+						<li><a href="/">首页</a></li>
 					
-						<li><a href="/archives">Archives</a></li>
+						<li><a href="/archives">归档</a></li>
 					
 					<li>
 					
@@ -125,6 +127,10 @@
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
+  <div class="rsspart">
+	<a href="rss2.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
   
 <div class="categorieslist">
 	<p class="asidetitle">分类</p>
@@ -139,20 +145,27 @@
 
 
   
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
-		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>2</sup></a></li>
-		
-		</ul>
-</div>
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MongoDB/" style="font-size: 20.00px;">MongoDB</a>
+    </div>
+  </div>
 
 
-  <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://zespia.tw/hexo" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
 </div>
 
 </aside>
