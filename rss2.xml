@@ -7,8 +7,222 @@
     <link>http://maizhibin.github.io/</link>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[]]></description>
-    <pubDate>Fri, 23 May 2014 09:33:19 GMT</pubDate>
+    <pubDate>Fri, 30 May 2014 00:38:33 GMT</pubDate>
     <generator>http://zespia.tw/hexo/</generator>
+    
+    <item>
+      <title><![CDATA[Ubuntu LAMP环境部署]]></title>
+      <link>http://maizhibin.github.io/2014/05/29/deploy-ubuntu-server/</link>
+      <guid>http://maizhibin.github.io/2014/05/29/deploy-ubuntu-server/</guid>
+      <pubDate>Thu, 29 May 2014 12:50:13 GMT</pubDate>
+      
+      <content:encoded><![CDATA[<h2 id="Ubuntu_LNMP和Java环境部署">Ubuntu LNMP和Java环境部署</h2>
+<p>本文的环境是在Linode位于日本机房的VPS上操作的，先赞一下Linode，2CPU/2G 内存/48G SSD, 在安装软件的过程中，下载速度达到70MB/s。无论网速、硬件配置，都可以傲视国内的大部分同价位的云主机。要知道，我这个plan在第一次订购时的配置是 8 core cpu/512M 内存/普通HD，经常两次免费升级后达到现在这个配置，按linode的说法，现在的2 core cpu的性能比以前8 core的还要好。至于在国内的访问速度，也不用担心，应该算正常范围内。</p>
+<p>各位有兴趣可以 <a href="https://www.linode.com/?r=78c090486d2546b16a1fe13da09146cc87aec7a7" target="_blank">点这个链接</a> 去了解。</p>
+<p>接下来开始开始进入正题。</p>
+<h3 id="配置文件系统">配置文件系统</h3>
+<p>Linode生成的服务器，是把根目录放在一个盘上。为了以后转移数据方便，以及保证在误操作根目录时不影响数据安全性，我创建了一个/data目录和新的Disk Image，把新的Disk Image挂载到/data目录下，用来保存数据。</p>
+<p>同时我也调整了swap的大小，设置为2G.</p>
+<p>为了使以上设置生效，需要修改/etc/fstab, 启动时mount数据盘到/data目录。修改完成后应该是下面的样子，其中我加了一行/data的配置，调整了swap的file system名称。 各位看官应该在充分了解fstab内配置的含义的前提下，根据自己系统的实际情况下配置，请勿照抄，否则可能重启时会导致系统宕机。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre>$ cat /etc/fstab
+<span class="comment"># /etc/fstab: static file system information.</span>
+<span class="comment">#</span>
+<span class="comment"># Use 'blkid' to print the universally unique identifier for a</span>
+<span class="comment"># device; this may be used with UUID= as a more robust way to name devices</span>
+<span class="comment"># that works even if disks are added and removed. See fstab(5).</span>
+<span class="comment">#</span>
+<span class="comment"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+proc        /proc        proc    defaults                       <span class="number">0</span> <span class="number">0</span>
+/dev/xvda   /            ext4    noatime,errors=remount-ro      <span class="number">0</span> <span class="number">1</span>
+/dev/xvdb   /data        ext4    defaults                       <span class="number">0</span> <span class="number">0</span>
+/dev/xvde   none         swap    sw                             <span class="number">0</span> <span class="number">0</span>
+</pre></td></tr></table></figure>
+
+<p>修改完成后，重启服务器。</p>
+<h3 id="安装MariaDB">安装MariaDB</h3>
+<p>下面以在Ubuntu Server 14.04LTS下安装MariaDB v10.0为例。 其它系统或版本的安装方式见官网链接</p>
+<blockquote>
+<p><a href="https://downloads.mariadb.org/mariadb/repositories/" target="_blank">https://downloads.mariadb.org/mariadb/repositories/</a></p>
+</blockquote>
+<p>添加MariaDB的仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get install software-properties-common
+<span class="built_in">sudo</span> apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:<span class="number">80</span> <span class="number">0</span>xcbcb082a1bb943db
+<span class="built_in">sudo</span> add-apt-repository <span class="string">'deb http://ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb/repo/10.0/ubuntu trusty main'</span>
+</pre></td></tr></table></figure>
+
+<p>安装MariaDB</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get update
+<span class="built_in">sudo</span> apt-get install mariadb-server
+</pre></td></tr></table></figure>
+
+<p>安装完成后，修改/etc/mysql/my.cnf的配置，把数据文件和日志文件保存到/data/mysql目录下,重启MariaDB。</p>
+<h3 id="安装Nginx">安装Nginx</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get install nginx
+</pre></td></tr></table></figure>
+
+<h3 id="安装PHP">安装PHP</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get install php5 php5-xcache php5-mysql php5-mcrypt php5-fpm
+</pre></td></tr></table></figure>
+
+<h3 id="配置vhost">配置vhost</h3>
+<p>nginx的配置文件存放在/etc/nginx/, 我们要增加一个vhost的配置，可以把配置文件放到 /etc/nginx/conf.d/</p>
+<p>前面说过，/data目录是用来保存数据的，那么我们的web目录也就放在/data/www目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> mkdir -p /data/www/
+<span class="built_in">cd</span> /etc/nginx/conf.d/
+<span class="built_in">sudo</span> vim demo.mydomain.com.conf
+</pre></td></tr></table></figure>
+
+<p>输入以下配置内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="code"><pre>server {
+
+        server_name demo.mydomain.com
+        charset utf-<span class="number">8</span>;
+        listen   <span class="number">80</span>; <span class="comment"># port 80 default</span>
+
+        root /data/www/; <span class="comment"># default directory where the files will be stored and served from</span>
+
+        index index.php index.html index.htm; <span class="comment"># index defined to be served under directory</span>
+
+        location / {
+                try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;
+        }
+
+        error_page <span class="number">404</span> /<span class="number">404</span>.html;
+        error_page <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span> /<span class="number">50</span>x.html;
+
+        location = /<span class="number">50</span>x.html {
+              root /data/www;
+        }
+
+        <span class="comment"># Serve PHP scripts to FastCGI server our php-fpm server listening on 127.0.0.1:9000</span>
+        location ~ \.php$ {
+                <span class="comment">#fastcgi_pass 127.0.0.1:9000;</span>
+                <span class="comment"># With php5-fpm:</span>
+                <span class="comment">#fastcgi_pass unix:/var/run/php5-fpm.sock;</span>
+                fastcgi_pass unix:/run/php5-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+}
+</pre></td></tr></table></figure>
+
+<p>保存文件后，重新加载nginx配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> nginx <span class="operator">-s</span> reload
+</pre></td></tr></table></figure>
+
+
+<h3 id="安装Webmin控制台">安装Webmin控制台</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get install libnet-ssleay-perl libauthen-pam-perl libio-pty-perl apt-show-versions libapt-pkg-perl
+wget http://sourceforge.net/projects/webadmin/files/webmin/<span class="number">1.690</span>/webmin_1.<span class="number">690</span>_all.deb/download
+mv download  webmin_1.<span class="number">690</span>_all.deb
+<span class="built_in">sudo</span> dpkg -i webmin_1.<span class="number">690</span>_all.deb
+</pre></td></tr></table></figure>
+
+
+<h3 id="安装JDK_8">安装JDK 8</h3>
+<p>下载和安装:</p>
+<p>因为ubuntu不支持直接安装RPM包，所以要使用alien把RPM包转为DEB格式。用下面的方式安装JDK时需要手动解压生成tools.jar和rt.jar两个包，否则运行java时会出现异常。</p>
+<p>wget命令加了参数，模拟已经同意协议，实现直接下载jdk。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> apt-get install alien fakeroot
+wget --no-check-certificate -c --header <span class="string">"Cookie: oraclelicense=accept-securebackup-cookie"</span> http://download.oracle.com/otn-pub/java/jdk/<span class="number">8</span>u5-b13/jdk-<span class="number">8</span>u5-linux-x64.rpm
+fakeroot alien <span class="operator">-d</span> jdk-<span class="number">8</span>u5-linux-x64.rpm
+<span class="built_in">sudo</span> dpkg -i jdk_1.<span class="number">8.005</span>-<span class="number">1</span>_amd64.deb
+<span class="built_in">sudo</span> ln <span class="operator">-f</span> <span class="operator">-s</span> /usr/java/jdk1.<span class="number">8.0</span>_05/bin/* /usr/bin/
+<span class="built_in">cd</span> /usr/java/jdk1.<span class="number">8.0</span>_05/lib
+<span class="built_in">sudo</span> unpack200 tools.pack tools.jar
+<span class="built_in">cd</span> /usr/java/jdk1.<span class="number">8.0</span>_05/jre/lib
+<span class="built_in">sudo</span> unpack200 rt.pack rt.jar
+</pre></td></tr></table></figure>
+
+<p>验证安装是否成功:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>$ java -version
+java version <span class="string">"1.8.0_05"</span>
+Java(TM) SE Runtime Environment (build <span class="number">1.8</span>.<span class="number">0</span>_05-b13)
+Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (build <span class="number">25.5</span>-b02, mixed mode)
+</pre></td></tr></table></figure>
+
+
+<h2 id="相关服务的启动或重启命令">相关服务的启动或重启命令</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="built_in">sudo</span> service nginx [start|stop|restart]
+<span class="built_in">sudo</span> service mysql [start|stop|restart]
+<span class="built_in">sudo</span> service php5-fpm [start|stop|restart]
+</pre></td></tr></table></figure>]]></content:encoded>
+      <comments>http://maizhibin.github.io/2014/05/29/deploy-ubuntu-server/#disqus_comments</comments>
+    </item>
     
     <item>
       <title><![CDATA[MongoDB Sharding in Action]]></title>
